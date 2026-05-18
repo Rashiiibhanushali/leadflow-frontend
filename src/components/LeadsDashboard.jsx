@@ -21,8 +21,8 @@ function LeadsDashboard({ refresh, onStatusChange }) {
     try {
       const url =
         status && status !== "All"
-          ? `http://localhost:3000/leads?status=${status}`
-          : `http://localhost:3000/leads`;
+          ? `${import.meta.env.VITE_API_URL}/leads?status=${status}`
+          : `${import.meta.env.VITE_API_URL}/leads`;
 
       const res = await fetch(url);
       const data = await res.json();
@@ -37,7 +37,7 @@ function LeadsDashboard({ refresh, onStatusChange }) {
   const handleStatusChange = async (id, newStatus) => {
     setUpdatingId(id);
     try {
-      const res = await fetch(`http://localhost:3000/leads/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/leads/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: newStatus }),

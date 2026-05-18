@@ -9,7 +9,7 @@ function App() {
 
   const fetchLeads = async () => {
     try {
-      const res = await fetch("http://localhost:3000/leads");
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/leads`);
       const data = await res.json();
       setLeads(data.leads || []);
     } catch (err) {
