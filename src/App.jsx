@@ -1,11 +1,14 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from "react";
 import LeadForm from "./components/LeadForm";
+import LeadsDashboard from "./components/LeadsDashboard";
 
 function App() {
+  const [refresh, setRefresh] = useState(0);
+
+  const handleLeadAdded = () => {
+    setRefresh((prev) => prev + 1);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-blue-800 text-white py-4 px-6 shadow">
@@ -13,8 +16,9 @@ function App() {
         <p className="text-sm text-blue-200">Lead Management System</p>
       </header>
 
-      <main className="max-w-5xl mx-auto px-4 py-8 flex gap-8">
-        <LeadForm />
+      <main className="max-w-6xl mx-auto px-4 py-8 flex flex-col gap-8">
+        <LeadForm onLeadAdded={handleLeadAdded} />
+        <LeadsDashboard refresh={refresh} />
       </main>
     </div>
   );
