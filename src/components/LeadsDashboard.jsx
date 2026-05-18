@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 const STATUSES = ["All", "New", "Contacted", "Qualified", "Closed"];
+const UPDATE_STATUSES = ["New", "Contacted", "Qualified", "Closed"];
 
 const STATUS_COLORS = {
   New: "bg-blue-100 text-blue-700",
@@ -13,6 +14,7 @@ function LeadsDashboard({ refresh }) {
   const [leads, setLeads] = useState([]);
   const [activeFilter, setActiveFilter] = useState("All");
   const [loading, setLoading] = useState(true);
+  const [updatingId, setUpdatingId] = useState(null);
 
   const fetchLeads = async (status) => {
     setLoading(true);
@@ -29,6 +31,30 @@ function LeadsDashboard({ refresh }) {
       console.error("Failed to fetch leads:", err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleStatusChange = async (id, newStatus) => {
+    setUpdatingId(id);
+    try {
+      const res = await fetch(`http://localhost:3000/leads/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus }),
+      });
+
+      if (res.ok) {
+        // Update locally without refetching
+        setLeads((prev) =>
+          prev.map((lead) =>
+            lead.id === id ? { ...lead, status: newStatus } : lead
+          )
+        );
+      }
+    } catch (err) {
+      console.error("Failed to update status:", err);
+    } finally {
+      setUpdatingId(null);
     }
   };
 
@@ -91,13 +117,22 @@ function LeadsDashboard({ refresh }) {
                     {lead.source || "—"}
                   </td>
                   <td className="px-6 py-4">
-                    <span
-                      className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                    <select
+                      value={lead.status}
+                      disabled={updatingId === lead.id}
+                      onChange={(e) =>
+                        handleStatusChange(lead.id, e.target.value)
+                      }
+                      className={`px-3 py-1 rounded-full text-xs font-semibold border-0 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 ${
                         STATUS_COLORS[lead.status] || "bg-gray-100 text-gray-600"
-                      }`}
+                      } ${updatingId === lead.id ? "opacity-50" : ""}`}
                     >
-                      {lead.status}
-                    </span>
+                      {UPDATE_STATUSES.map((s) => (
+                        <option key={s} value={s}>
+                          {s}
+                        </option>
+                      ))}
+                    </select>
                   </td>
                   <td className="px-6 py-4 text-gray-400">
                     {new Date(lead.created_at).toLocaleDateString("en-IN")}
