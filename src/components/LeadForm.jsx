@@ -47,7 +47,7 @@ function LeadForm({ onLeadAdded }) {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow p-6 w-full max-w-md">
+    <div className="bg-white rounded-2xl shadow p-6 w-full">
       <h2 className="text-xl font-semibold text-gray-800 mb-4">Add New Lead</h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -101,7 +101,7 @@ function LeadForm({ onLeadAdded }) {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-700 text-white py-2 rounded-lg text-sm font-semibold hover:bg-blue-800 disabled:opacity-50 transition"
+          className="w-full bg-blue-800 text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-blue-900 disabled:opacity-50 transition shadow-sm"
         >
           {loading ? "Adding..." : "Add Lead"}
         </button>

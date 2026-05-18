@@ -10,7 +10,7 @@ const STATUS_COLORS = {
   Closed: "bg-gray-100 text-gray-600",
 };
 
-function LeadsDashboard({ refresh }) {
+function LeadsDashboard({ refresh, onStatusChange }) {
   const [leads, setLeads] = useState([]);
   const [activeFilter, setActiveFilter] = useState("All");
   const [loading, setLoading] = useState(true);
@@ -50,6 +50,7 @@ function LeadsDashboard({ refresh }) {
             lead.id === id ? { ...lead, status: newStatus } : lead
           )
         );
+        if (onStatusChange) onStatusChange();
       }
     } catch (err) {
       console.error("Failed to update status:", err);
