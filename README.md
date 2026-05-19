@@ -1,21 +1,45 @@
-<<<<<<< HEAD
-# React + Vite
+# LeadFlow — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack lead management dashboard built with React, Vite, and Tailwind CSS.
 
-Currently, two official plugins are available:
+## Live App
+[https://leadflow-frontend-five.vercel.app](https://leadflow-frontend-five.vercel.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
+- Submit new leads via a clean form
+- Dashboard table with all leads
+- Filter leads by status (New / Contacted / Qualified / Closed)
+- Inline status update — change status directly from the table row
+- Stats bar showing live lead counts per status
+- Fully responsive — works on mobile and desktop
+- Instant UI updates without page refresh
 
-## React Compiler
+## Tech Stack
+- **Framework:** React (Vite)
+- **Styling:** Tailwind CSS
+- **API:** Axios/Fetch → LeadFlow Backend REST API
+- **Deployment:** Vercel
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Screenshots
 
-## Expanding the ESLint configuration
+![LeadFlow Dashboard](./screenshot.png)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-=======
-# leadflow-frontend
-A full-stack lead management Frontend built with React and Tailwind
->>>>>>> 76a08e11b7c7fc7c4f7d23b97e84726a29af5ae9
+##  Local Setup
+
+```bash
+# Clone the repo
+git clone https://github.com/Rashiiibhanushali/leadflow-frontend.git
+cd leadflow-frontend
+
+# Install dependencies
+npm install
+
+# Create .env file
+VITE_API_URL=https://leadflow-backend-jxdn.onrender.com
+
+# Run the app
+npm run dev
+```
+
+## 🔗 Backend
+[leadflow-backend](https://github.com/Rashiiibhanushali/leadflow-backend)
